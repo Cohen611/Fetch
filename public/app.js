@@ -6,24 +6,16 @@ $(document).ready(function() {
 var fetchApp = {
   urls: {
     // URL ROUTES JAMES CREATES WILL GO HERE
-<<<<<<< HEAD
     user:          '/user',
     driver:        '/driver',
     driverRequest:  '/driver-requests',
+    logout:         '/logout',
     loginDriver:   '/login-Driver',
     loginUser:     '/login-User',
     userRequests:  '/user-requests',
     request:       '/request',
     update: '/update-request',
     delete: '/delete-request',
-=======
-    user:              '/user',
-    loginDriver:       '/login-Driver',
-    loginUser:         '/login-User',
-    driver:            '/driver',
-    userRequests:      '/user-requests',
-    request:           '/request',
->>>>>>> e794a2037b35c2291510edda564f642900ff58fa
   },
 
 
@@ -41,8 +33,6 @@ var fetchApp = {
     // ALL OUR CLICK EVENTS WILL LIVE HERE
 
     // ON LOGIN FORM SUBMISSION
-<<<<<<< HEAD
-=======
     $('#letsGo').on('click', function () {
       var username = "";
       if ($('select[name=userType]').val() === 'user' &&
@@ -75,43 +65,12 @@ var fetchApp = {
       }
     });
 
-                  $('.logoutButton').on('click', function () {
-                  $('#loginPage').addClass('active');
-                  $('#loginPage').siblings().removeClass('active');
-    });
->>>>>>> e794a2037b35c2291510edda564f642900ff58fa
+      $(".logoutButton").on('click', function(){
+      $(this).closest('section').removeClass('active');
+      $('#loginPage').addClass('active');
+      });
 
-  $('#letsGo').on('click', function () {
-       var username = "";
-       if ($('select[name=userType]').val() === 'user' &&
-           $('input[type=checkbox]').is(":checked")) {
-                   username = $('input[name="userName"]').val();
-                   fetchApp.addNewUser(username);
-                   // add only this user's open requests to DOM
-       }
-       else if ($('select[name=userType]').val() === 'user' &&
-               !$('input[type=checkbox]').is(":checked")) {
-                   $('#userPage').addClass('active');
-                   $('#loginPage').removeClass('active');
-                   username = $('input[name="userName"]').val();
-                   fetchApp.loginUser(username);
-                   fetchApp.getUserRequests();
-                   // add only this user's open requests to DOM
-       }
-       else if ($('select[name=userType]').val() === 'driver' &&
-                $('input[type=checkbox]').is(":checked")) {
-                   username = $('input[name="userName"]').val();
-                   fetchApp.addNewDriver(username);
-                   // add only this user's open requests to DOM
-       }
-       else {
-                   $('#driverPage').addClass('active');
-                   $('#loginPage').removeClass('active');
-                   username = $('input[name="userName"]').val();
-                   fetchApp.loginDriver(username);
-                   // add only this user's open requests to DOM
-       }
-     });
+
     //  $("logoutButton").on('click', function(){
     //     $('#userPage',"#").removeClass('active');
     //     $('#loginPage').addClass('active');
@@ -257,6 +216,20 @@ var fetchApp = {
       },
     });
   },
+
+  logout: function(){
+    $.ajax({
+      url: fetchApp.urls.logout,
+      method: "POST",
+      success: function(){
+        console.log('logged out');
+      },
+      error: function(err){
+        console.log('failed to log out',err)
+      }
+    });
+  },
+
   addRequestToDom: function(request,template,target){
     $(target).html(fetchApp.buildRequestHtml(template, request));
 
