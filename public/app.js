@@ -68,6 +68,7 @@ var fetchApp = {
       $(".logoutButton").on('click', function(){
       $(this).closest('section').removeClass('active');
       $('#loginPage').addClass('active');
+      fetchApp.logout();
       });
 
 
@@ -217,18 +218,19 @@ var fetchApp = {
     });
   },
 
-  logout: function(){
-    $.ajax({
-      url: fetchApp.urls.logout,
-      method: "POST",
-      success: function(){
-        console.log('logged out');
-      },
-      error: function(err){
-        console.log('failed to log out',err)
-      }
-    });
-  },
+    logout: function(){
+      $.ajax({
+        url: fetchApp.urls.logout,
+        method: "POST",
+        success: function(){
+          console.log('logged out');
+        },
+        error: function(err){
+          console.log('failed to log out',err)
+        }
+      });
+    },
+
 
   addRequestToDom: function(request,template,target){
     $(target).html(fetchApp.buildRequestHtml(template, request));
